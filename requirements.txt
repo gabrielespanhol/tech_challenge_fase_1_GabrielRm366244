@@ -1,0 +1,6 @@
+SQLAlchemy
+uvicorn
+fastapi
+pandas
+requests
+beautifulsoup4==4.13.4
