@@ -4,3 +4,5 @@ fastapi
 pandas
 requests
 beautifulsoup4==4.13.4
+psycopg2-binary
+python-dotenv
