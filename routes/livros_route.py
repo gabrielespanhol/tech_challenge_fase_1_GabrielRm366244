@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Body, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import text, func
@@ -10,7 +10,7 @@ from typing import List, Optional
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 
-livros_routes = APIRouter()
+book_route = APIRouter()
 
 
 def parse_preco(preco_str):
@@ -23,7 +23,7 @@ def parse_preco(preco_str):
     return 0.0
 
 
-@livros_routes.post("/api/v1/scraping/trigger")
+@book_route.post("/api/v1/scraping/trigger")
 def carregar_base():
     session: Session = SessionLocal()
     try:
@@ -83,7 +83,7 @@ def carregar_base():
         session.close()
 
 
-@livros_routes.delete("/api/v1/scraping/trigger/delete")
+@book_route.delete("/api/v1/scraping/trigger/delete")
 def truncate_base_livros():
     session: Session = SessionLocal()
     try:
@@ -107,7 +107,7 @@ def truncate_base_livros():
         session.close()
 
 
-@livros_routes.get("/api/v1/books", response_model=List[BookSchema])
+@book_route.get("/api/v1/books", response_model=List[BookSchema])
 def listar_livros(limit: Optional[int] = Query(default=None, ge=1)):
     session: Session = SessionLocal()
     try:
@@ -128,7 +128,7 @@ def listar_livros(limit: Optional[int] = Query(default=None, ge=1)):
         session.close()
 
 
-@livros_routes.get("/api/v1/books/search", response_model=List[BookSchema])
+@book_route.get("/api/v1/books/search", response_model=List[BookSchema])
 def buscar_livros(
     title: Optional[str] = Query(None), category: Optional[str] = Query(None)
 ):
@@ -152,7 +152,7 @@ def buscar_livros(
         session.close()
 
 
-@livros_routes.get("/api/v1/books/top-rated")
+@book_route.get("/api/v1/books/top-rated")
 def listar_top_livros(limit: int = 10):
     session: Session = SessionLocal()
 
@@ -163,7 +163,7 @@ def listar_top_livros(limit: int = 10):
     return livros_top
 
 
-@livros_routes.get("/api/v1/books/price-range", response_model=List[BookSchema])
+@book_route.get("/api/v1/books/price-range", response_model=List[BookSchema])
 def filtrar_livros_por_preco(min: float = Query(0), max: float = Query(9999)):
     session: Session = SessionLocal()
 
@@ -182,7 +182,7 @@ def filtrar_livros_por_preco(min: float = Query(0), max: float = Query(9999)):
     return livros
 
 
-@livros_routes.get("/api/v1/books/{id}", response_model=BookSchema)
+@book_route.get("/api/v1/books/{id}", response_model=BookSchema)
 def obter_livro_por_id(id: int):
     session: Session = SessionLocal()
     try:
@@ -200,7 +200,7 @@ def obter_livro_por_id(id: int):
         session.close()
 
 
-@livros_routes.get("/api/v1/categories")
+@book_route.get("/api/v1/categories")
 def listar_categorias():
     session: Session = SessionLocal()
     try:
@@ -216,7 +216,7 @@ def listar_categorias():
         session.close()
 
 
-@livros_routes.get("/api/v1/health")
+@book_route.get("/api/v1/health")
 def verificar_status():
     session: Session = SessionLocal()
     try:
@@ -237,7 +237,7 @@ def verificar_status():
 #  overview
 
 
-@livros_routes.get("/api/v1/stats/overview")
+@book_route.get("/api/v1/stats/overview")
 def overview_geral():
     session: Session = SessionLocal()
     total_livros = session.query(BookModel).count()
@@ -264,7 +264,7 @@ def overview_geral():
     }
 
 
-@livros_routes.get("/api/v1/stats/categories")
+@book_route.get("/api/v1/stats/categories")
 def stats_por_categoria():
     session: Session = SessionLocal()
 

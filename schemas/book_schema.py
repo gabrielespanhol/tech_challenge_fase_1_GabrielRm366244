@@ -12,4 +12,4 @@ class BookSchema(BaseModel):
     link: str
 
     class Config:
-        orm_mode = True  # Permite conversão direta de objetos SQLAlchemy
+        from_attributes = True
