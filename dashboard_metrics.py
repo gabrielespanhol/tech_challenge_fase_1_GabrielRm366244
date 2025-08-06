@@ -4,16 +4,16 @@ import requests
 import plotly.express as px
 
 # # dev
-API_URL = "http://localhost:8000/metrics-list"
+# API_URL = "http://localhost:8000/metrics-list"
 
 # # prod
-# API_URL = "https://tech-challenge-fase-1-gabrielrm366244.onrender.com/metrics-list/"
+API_URL = "https://tech-challenge-fase-1-gabrielrm366244.onrender.com/metrics-list/"
 
 st.set_page_config(page_title="API Metrics Dashboard", layout="wide")
 
 # Link para documentação da API no topo, com target _blank para abrir em nova aba
 st.markdown(
-    '<a href="/docs" target="_blank" style="font-size:18px;">📖 Documentação da API</a>',
+    '<a href="https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs" target="_blank" style="font-size:25px;">📖 Documentação da API</a>',
     unsafe_allow_html=True,
 )
 
