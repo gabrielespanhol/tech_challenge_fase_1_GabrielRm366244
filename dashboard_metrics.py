@@ -59,6 +59,15 @@ df_filtered = df[
     (df["method"].isin(method_filter)) & (df["status_code"].isin(status_filter))
 ]
 
+
+# Função para formatar latência dinamicamente
+def format_latency(value_ms):
+    if value_ms >= 1000:
+        return f"{value_ms / 1000:.2f} s"
+    else:
+        return f"{value_ms:.2f} ms"
+
+
 # Métricas principais
 total_requests = len(df_filtered)
 error_5xx = df_filtered[df_filtered["status_code"] >= 500]
@@ -72,9 +81,9 @@ latency_max = df_filtered["duration_ms"].max()
 col1, col2, col3, col4, col5 = st.columns(5)
 col1.metric("Total de Requisições", f"{total_requests:,}")
 col2.metric("Erros 5xx", f"{error_5xx_count:,} ({error_5xx_pct:.1f}%)")
-col3.metric("Latência Média", f"{latency_mean:.2f} ms")
-col4.metric("Latência Mediana", f"{latency_median:.2f} ms")
-col5.metric("Latência Máxima", f"{latency_max:.2f} ms")
+col3.metric("Latência Média", format_latency(latency_mean))
+col4.metric("Latência Mediana", format_latency(latency_median))
+col5.metric("Latência Máxima", format_latency(latency_max))
 
 # Gráfico: Hits por rota
 st.subheader("📈 Hits por Rota")
@@ -126,6 +135,10 @@ st.subheader("📅 Requests ao longo do Tempo")
 df_time = (
     df_filtered.set_index("timestamp").resample("1min").count()["id"].reset_index()
 )
+
+# 🔽 Filtrar apenas minutos com requests > 0
+df_time = df_time[df_time["id"] != 0]
+
 fig_time = px.line(
     df_time,
     x="timestamp",
