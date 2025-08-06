@@ -18,20 +18,6 @@ def startup_event():
     create_tables()
 
 
-# # dev
-# @app.get("/")
-# async def main_dashboard_redirect():
-#     return RedirectResponse("http://localhost:8501")
-
-
-# prod
-@app.get("/")
-async def main_dashboard_redirect():
-    return RedirectResponse(
-        "https://tech-challenge-fase-1-gabrielrm366244.onrender.com/"
-    )
-
-
 app.include_router(book_route, tags=["Books"])
 app.include_router(machine_learning_route, tags=["Machine Learning"])
 app.include_router(metrics_route, tags=["Metrics"])
