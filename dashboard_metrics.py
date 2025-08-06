@@ -19,6 +19,15 @@ st.markdown(
 
 st.title("📊 API Metrics Dashboard")
 
+
+# Função para formatar latência dinamicamente
+def format_latency(value_ms):
+    if value_ms >= 1000:
+        return f"{value_ms / 1000:.2f} s"
+    else:
+        return f"{value_ms:.2f} ms"
+
+
 # Fetch metrics data
 with st.spinner("Carregando dados..."):
     response = requests.get(API_URL)
@@ -58,15 +67,6 @@ with st.sidebar:
 df_filtered = df[
     (df["method"].isin(method_filter)) & (df["status_code"].isin(status_filter))
 ]
-
-
-# Função para formatar latência dinamicamente
-def format_latency(value_ms):
-    if value_ms >= 1000:
-        return f"{value_ms / 1000:.2f} s"
-    else:
-        return f"{value_ms:.2f} ms"
-
 
 # Métricas principais
 total_requests = len(df_filtered)
@@ -115,29 +115,31 @@ fig_status = px.pie(
 )
 st.plotly_chart(fig_status, use_container_width=True)
 
-# Gráfico: Latência média por rota
+# Gráfico: Latência média por rota (com conversão s/ms)
 st.subheader("⏱️ Latência Média por Rota")
 latency_by_path = df_filtered.groupby("path")["duration_ms"].mean().reset_index()
+latency_by_path["latency_formatted"] = latency_by_path["duration_ms"].apply(
+    format_latency
+)
+
 fig_latency = px.bar(
     latency_by_path,
     x="path",
     y="duration_ms",
-    text_auto=".2f",
+    text="latency_formatted",
     height=400,
-    labels={"path": "Rota", "duration_ms": "Latência Média (ms)"},
-    title="Latência Média (ms) por Rota",
+    labels={"path": "Rota", "duration_ms": "Latência Média"},
+    title="Latência Média por Rota",
 )
 fig_latency.update_layout(xaxis_tickangle=-45)
 st.plotly_chart(fig_latency, use_container_width=True)
 
-# Gráfico: Evolução temporal de requests
+# Gráfico: Evolução temporal de requests (filtrando id == 0)
 st.subheader("📅 Requests ao longo do Tempo")
 df_time = (
     df_filtered.set_index("timestamp").resample("1min").count()["id"].reset_index()
 )
-
-# 🔽 Filtrar apenas minutos com requests > 0
-df_time = df_time[df_time["id"] != 0]
+df_time = df_time[df_time["id"] != 0]  # Remover minutos com 0 requests
 
 fig_time = px.line(
     df_time,
