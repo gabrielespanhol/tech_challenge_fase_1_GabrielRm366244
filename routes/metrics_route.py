@@ -21,7 +21,7 @@ def create_metric(metric: MetricsCreate, db: Session = Depends(get_db)):
     return Metrics.from_orm(db_metric)
 
 
-@metrics_route.get("/metrics/", response_model=List[Metrics])
+@metrics_route.get("/metrics-list", response_model=List[Metrics])
 def list_metrics(
     skip: int = 0,
     limit: int = Query(100, le=1000),

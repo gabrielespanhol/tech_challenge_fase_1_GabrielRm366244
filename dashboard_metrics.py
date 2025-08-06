@@ -4,10 +4,10 @@ import requests
 import plotly.express as px
 
 # # dev
-# API_URL = "http://localhost:8000/api/v1/metrics/"
+API_URL = "http://localhost:8000/metrics-list"
 
-# prod
-API_URL = "https://tech-challenge-fase-1-gabrielrm366244.onrender.com/api/v1/metrics/"
+# # prod
+# API_URL = "https://tech-challenge-fase-1-gabrielrm366244.onrender.com/metrics-list/"
 
 st.set_page_config(page_title="API Metrics Dashboard", layout="wide")
 

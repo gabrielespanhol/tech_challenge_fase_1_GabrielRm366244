@@ -35,6 +35,5 @@ async def main_dashboard_redirect():
 app.include_router(book_route, tags=["Books"])
 app.include_router(machine_learning_route, tags=["Machine Learning"])
 app.include_router(metrics_route, tags=["Metrics"])
-app.include_router(metrics_route, prefix="/api/v1", tags=["Metrics"])
 
 app.add_middleware(MetricsMiddleware)
