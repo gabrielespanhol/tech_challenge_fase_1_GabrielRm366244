@@ -79,17 +79,9 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 **GET** `/api/v1/categories`  
 > Lista todas as categorias disponíveis.
 
----
-
-### ❤️ Health Check
-
 #### ✅ Verificar Status
 **GET** `/api/v1/health`  
 > Verifica se a API está funcionando.
-
----
-
-### 📊 Estatísticas
 
 #### 📈 Overview Geral
 **GET** `/api/v1/stats/overview`  
