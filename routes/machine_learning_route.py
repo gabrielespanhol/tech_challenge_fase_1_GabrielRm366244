@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Body
 from sqlalchemy.orm import Session
-from sqlalchemy import text, func
 from db.session import SessionLocal
 from models.book_model import BookModel
 from models.prediction_model import PredictionModel
 from schemas.prediction_schema import PredictionCreate, PredictionResponse
-from scripts.web_scraping import extrair_todos_os_livros
 from typing import List
 from fastapi.responses import JSONResponse
 
@@ -72,9 +70,7 @@ def get_training_data():
         session.close()
 
 
-@machine_learning_route.post(
-    "/api/v1/ml/predictions", response_model=List[PredictionResponse]
-)
+@machine_learning_route.post("/api/v1/ml/predictions", status_code=201)
 def receber_predicoes(predicoes: List[PredictionCreate] = Body(...)):
     session: Session = SessionLocal()
     try:
@@ -100,7 +96,7 @@ def receber_predicoes(predicoes: List[PredictionCreate] = Body(...)):
 
         session.commit()
         session.refresh(nova_predicao)
-        return predicoes_salvas
+        return JSONResponse(status_code=201, content={"message": "Criado"})
 
     except Exception as e:
         session.rollback()
