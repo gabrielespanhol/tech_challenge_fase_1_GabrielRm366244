@@ -14,16 +14,36 @@ https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs
 ## 🌐 URL Dashboard
 
 ```
-https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs
+https://tech-challenge-fase-1-gabrielrm366244-wihb.onrender.com/
 ```
 ---
 
-## Arquitetura 
+## Arquitetura do projeto
 
-<img src="arquitetura.drawio.png" alt="Logo do Projeto" width="200"/>
+<img src="arquitetura.drawio.png" alt="Logo do Projeto" width="400"/>
 
+## 1. Fonte de Dados
+Books to Scrape é o site de onde os dados são extraídos.
 
-## 📖 Endpoints da API
+Ele serve como base para alimentar nosso sistema com informações sobre livros.
+
+## 2. Ingestão
+A coleta de dados pode ser feita de duas maneiras:
+
+Via API usando a rota /api/v1/scraping/trigger para iniciar o scraping remotamente.
+
+Via script local, executado diretamente no ambiente de desenvolvimento.
+
+Após a coleta, os dados são enviados para a etapa de armazenamento.
+
+## 3. Armazenamento
+Os dados coletados podem ser salvos de duas formas:
+
+PostgreSQL (banco de dados relacional para consultas rápidas via API).
+
+Arquivo CSV (útil para análises e exportações no Excel ou outras ferramentas).
+
+## 4. API 📖 Endpoints da API
 
 ### 📦 Books
 
