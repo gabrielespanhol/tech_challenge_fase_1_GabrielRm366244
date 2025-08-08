@@ -1,101 +1,155 @@
-# 📚 Livros API - Web Scraping com FastAPI
 
-Este projeto é uma API REST desenvolvida com FastAPI que realiza scraping de livros de um site fictício, armazena os dados em um banco de dados relacional e fornece diversas rotas para consulta, filtro, análise e manutenção da base.
+# 📚 Tech Challenge API - Consulta de Livros
 
----
-
-## 🏗️ Arquitetura
-
-- **FastAPI** como framework principal.
-- **SQLAlchemy** para ORM e conexão com banco de dados (PostgreSQL/SQLite).
-- **Roteamento modular** via `APIRouter`.
-- **Scripts de scraping** desacoplados, importados separadamente.
-- **Pydantic** para validação de dados via schemas.
-- **Swagger/OpenAPI** disponível automaticamente em `/docs`.
+API pública desenvolvida como parte do Tech Challenge 2025 (RM366244) para ingestão, consulta e análise de informações de livros, além de integração com modelos de Machine Learning.
 
 ---
 
-## ⚙️ Instalação e Configuração
+## 🌐 URL Documentação
 
-### 1. Clone o projeto
+```
+https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs
+```
 
-git clone https://github.com/seu-usuario/livros-api.git
-cd livros-api
+## 🌐 URL Dashboard
 
-2. Crie e ative um ambiente virtual
+```
+https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs
+```
+---
 
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
-venv\Scripts\activate     # Windows
+## Arquitetura 
 
-3. Instale as dependências
+<img src="arquitetura.drawio.png" alt="Logo do Projeto" width="200"/>
 
-pip install -r requirements.txt
 
-4. Configure o banco de dados
-Crie um arquivo .env com:
+## 📖 Endpoints da API
 
-env
-Copiar
-Editar
-DATABASE_URL=sqlite:///./livros.db  # ou substitua por PostgreSQL, ex: postgresql://user:password@host:port/dbname
+### 📦 Books
 
-5. Execute as migrações/tabelas
+#### 🔄 Carregar Base de Dados
+**POST** `/api/v1/scraping/trigger`  
+> Dispara o scraping e popula a base de dados.
 
-python scripts/criar_tabelas.py
-🚀 Execução
+#### 🗑️ Truncar Base de Dados
+**DELETE** `/api/v1/scraping/trigger/delete`  
+> Remove todos os registros da base.
 
-uvicorn main:app --reload
-Acesse a documentação interativa em: http://localhost:8000/docs
+#### 📚 Listar Todos os Livros
+**GET** `/api/v1/books`  
+> Lista os livros com opção de `limit`.
 
-📌 Rotas da API
-🧹 Web Scraping e Manutenção
-Método	Rota	Descrição
-POST	/api/v1/scraping/trigger	Realiza scraping e popula o banco de dados. Evita duplicatas.
-DELETE	/api/v1/scraping/trigger/delete	Limpa todos os registros do banco.
+#### 🔍 Buscar Livros
+**GET** `/api/v1/books/search`  
+> Busca por `title` ou `category`.
 
-📚 Livros
-Método	Rota	Descrição
-GET	/api/v1/books	Lista todos os livros (com parâmetro limit opcional).
-GET	/api/v1/books/search?title=...&category=...	Busca livros por título e/ou categoria.
-GET	/api/v1/books/{id}	Busca um livro pelo ID.
-GET	/api/v1/books/top-rated?limit=10	Retorna os livros com maior número de estrelas.
-GET	/api/v1/books/price-range?min=0&max=100	Filtra livros por faixa de preço.
+#### ⭐ Listar Top Livros
+**GET** `/api/v1/books/top-rated`  
+> Lista livros com maior avaliação.
 
-📊 Estatísticas
-Método	Rota	Descrição
-GET	/api/v1/stats/overview	Total de livros, preço médio e distribuição de ratings.
-GET	/api/v1/stats/categories	Estatísticas por categoria (quantidade, preço médio, mínimo e máximo).
+#### 💰 Filtrar Livros Por Preço
+**GET** `/api/v1/books/price-range`  
+> Filtros por `min` e `max` de preço.
 
-📁 Utilitários
-Método	Rota	Descrição
-GET	/api/v1/categories	Lista todas as categorias únicas.
-GET	/api/v1/health	Checagem de saúde da API e conexão com o banco.
+#### 🔎 Obter Livro por ID
+**GET** `/api/v1/books/{id}`  
+> Detalhes de um livro específico.
 
-📦 Exemplo de chamadas
-🔹 Carregar base (scraping)
+#### 🏷️ Listar Categorias
+**GET** `/api/v1/categories`  
+> Lista todas as categorias disponíveis.
 
-curl -X POST http://localhost:8000/api/v1/scraping/trigger
-🔹 Listar livros
+---
 
-curl http://localhost:8000/api/v1/books
-🔹 Buscar livro por título
+### ❤️ Health Check
 
-curl "http://localhost:8000/api/v1/books/search?title=travel"
-🔹 Estatísticas gerais
+#### ✅ Verificar Status
+**GET** `/api/v1/health`  
+> Verifica se a API está funcionando.
 
-curl http://localhost:8000/api/v1/stats/overview
-🧪 Testes
-Você pode testar as rotas com ferramentas como:
+---
 
-Postman
+### 📊 Estatísticas
 
-HTTPie
+#### 📈 Overview Geral
+**GET** `/api/v1/stats/overview`  
+> Estatísticas gerais sobre os livros.
 
-Navegador (Swagger UI em /docs)
+#### 🗂️ Stats por Categoria
+**GET** `/api/v1/stats/categories`  
+> Estatísticas agrupadas por categoria.
 
-🧑‍💻 Autor
-Gabriel Espanhol
+---
 
-📝 Licença
-Este projeto é livre para uso educacional e pessoal.
+### 🤖 Machine Learning
+
+#### 🔢 Features para Modelos
+**GET** `/api/v1/ml/features`  
+> Dados preparados para uso como features.
+
+#### 📂 Dados para Treinamento
+**GET** `/api/v1/ml/training-data`  
+> Dataset formatado para treino de modelo.
+
+#### 📤 Enviar Predições
+**POST** `/api/v1/ml/predictions`  
+> Recebe dados das predições feitas pelo modelo.
+
+#### 🗃️ Listar Predições
+**GET** `/api/v1/ml/predictions-list`  
+> Lista todas as predições feitas.
+
+---
+
+### 📈 Métricas de Uso
+
+#### ➕ Criar Métrica
+**POST** `/metrics/`  
+> Armazena métrica de uso da API.
+
+#### 📋 Listar Métricas
+**GET** `/metrics-list`  
+> Retorna a lista de métricas registradas.
+
+---
+
+## 🧾 Especificação Técnica
+
+- **Versão da API:** 1.0.0
+- **Documentação OpenAPI:** (https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs)
+- **Formato de resposta:** `application/json`
+- **Status esperados:**
+  - `200`: Sucesso
+  - `422`: Erro de validação
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Backend:** Python · FastAPI
+- **Scraping:** BeautifulSoup
+- **Banco de Dados:** PostgreSQL
+- **Hospedagem:** Render
+- **Documentação:** OpenAPI 3.1
+
+---
+
+## 👨‍💻 Desenvolvedor
+
+**Gabriel Espanhol**  
+RA: RM366244  
+
+---
+
+## 📌 Observações
+
+- Dados extraídos de [Books to Scrape](http://books.toscrape.com)
+- API pública e educacional.
+- Suporta análise estatística, integração com ML e visualização de métricas.
+
+---
+
+## 📎 Licença
+
+Distribuído sob a licença MIT.  
+Sinta-se livre para usar, contribuir e melhorar.
