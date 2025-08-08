@@ -21,7 +21,7 @@ https://tech-challenge-fase-1-gabrielrm366244-wihb.onrender.com/
 ## Arquitetura do projeto
 
 <div align="center">
-    <img src="arquitetura.drawio.png" alt="Logo do Projeto" width="500" />
+    <img src="arquitetura.drawio.png" alt="Logo do Projeto" width="470" />
 </div>
 
 ## 1. Fonte de Dados
