@@ -20,28 +20,28 @@ https://tech-challenge-fase-1-gabrielrm366244-wihb.onrender.com/
 
 ## Arquitetura do projeto
 
-<img src="arquitetura.drawio.png" alt="Logo do Projeto" width="400"/>
+<div align="center">
+    <img src="arquitetura.drawio.png" alt="Logo do Projeto" width="500" />
+</div>
 
 ## 1. Fonte de Dados
 Books to Scrape é o site de onde os dados são extraídos.
-
-Ele serve como base para alimentar nosso sistema com informações sobre livros.
 
 ## 2. Ingestão
 A coleta de dados pode ser feita de duas maneiras:
 
 Via API usando a rota /api/v1/scraping/trigger para iniciar o scraping remotamente.
 
-Via script local, executado diretamente no ambiente de desenvolvimento.
+Via script local, executado diretamente o arquivo web_scraping.py na pasta de scripts.
 
 Após a coleta, os dados são enviados para a etapa de armazenamento.
 
 ## 3. Armazenamento
 Os dados coletados podem ser salvos de duas formas:
 
-PostgreSQL (banco de dados relacional para consultas rápidas via API).
+PostgreSQL (Armazenado depois que a rota /api/v1/scraping/trigger é disparada)
 
-Arquivo CSV (útil para análises e exportações no Excel ou outras ferramentas).
+Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 
 ## 4. API 📖 Endpoints da API
 
@@ -138,9 +138,6 @@ Arquivo CSV (útil para análises e exportações no Excel ou outras ferramentas
 - **Versão da API:** 1.0.0
 - **Documentação OpenAPI:** (https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs)
 - **Formato de resposta:** `application/json`
-- **Status esperados:**
-  - `200`: Sucesso
-  - `422`: Erro de validação
 
 ---
 
@@ -157,7 +154,7 @@ Arquivo CSV (útil para análises e exportações no Excel ou outras ferramentas
 ## 👨‍💻 Desenvolvedor
 
 **Gabriel Espanhol**  
-RA: RM366244  
+RM: RM366244  
 
 ---
 
@@ -168,8 +165,3 @@ RA: RM366244
 - Suporta análise estatística, integração com ML e visualização de métricas.
 
 ---
-
-## 📎 Licença
-
-Distribuído sob a licença MIT.  
-Sinta-se livre para usar, contribuir e melhorar.
