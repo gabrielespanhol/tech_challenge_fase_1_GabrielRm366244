@@ -129,38 +129,38 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 
 ## 1. Clonar o repositório
 
-> git clone https://github.com/gabrielespanhol/tech_challenge_fase_1_GabrielRm366244.git
+> git clone https://github.com/gabrielespanhol/tech_challenge_fase_1_GabrielRm366244.git<br>
 > cd tech_challenge_fase_1_GabrielRm366244
 
 ## 2. Criar e ativar um ambiente virtual (recomendado)
 
-> python -m venv venv
-> source venv/bin/activate   # no macOS/Linux
+> python -m venv venv<br>
+> source venv/bin/activate   # no macOS/Linux<br>
 > venv\Scripts\activate      # no Windows
 
 ## 3. Instalar dependências
 
-> pip install -r requirements.txt
+> pip install -r requirements.txt<br>
 > No arquivo requirements.txt, você encontrará as dependências necessárias para rodar a aplicação — por exemplo, FastAPI, BeautifulSoup, entre outras.
 
 
 ## 4. Preparar o banco de dados (opcional, conforme sua escolha)
 
-> Os dados podem ser armazenados localmente via CSV ou em banco se você fizer web scraping pela rota da API 
-> Caso opte por fazer o web scraping pela rota da API é necessario configurar o banco de dados de sua escolha no arquivo "db/session.py" 
+> Os dados podem ser armazenados localmente via CSV ou em banco se você fizer web scraping pela rota da API<br> 
+> Caso opte por fazer o web scraping pela rota da API é necessario configurar o banco de dados de sua escolha no arquivo "db/session.py"<br> 
 > O codigo para criar um banco SQLite local esta pronto, apenas precisa ser "descomentado" e a parte que aponta para uma base de produção precisa ser comentada
 
 ## 5. Rodar o scraping local (opcional)
 
-Para extrair os dados e salvá-los em CSV:
-python scripts/web_scraping.py
-Isso utiliza o BeautifulSoup para coletar dados de Books to Scrape e salvar localmente 
+> Para extrair os dados e salvá-los em CSV:<br>
+> python scripts/web_scraping.py<br>
+> Isso utiliza o BeautifulSoup para coletar dados de Books to Scrape e salvar localmente 
 
 ## 6. Iniciar a API
 
-Execute:
-uvicorn main:app --reload
-Isso iniciará a API com hot-reload localmente.
+> Execute:<br>
+> uvicorn main:app --reload<br>
+> Isso iniciará a API com hot-reload localmente.
 
 
 ## 🧾 Especificação Técnica
