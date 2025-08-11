@@ -36,6 +36,7 @@ def extrair_Menu():
             # Constrói a URL absoluta e adiciona à lista
             links_menu.append((texto, "http://books.toscrape.com/" + href))
 
+    print("categorias extraidas com sucesso")
     return links_menu
 
 
@@ -101,15 +102,16 @@ def extrair_todos_os_livros():
         # Para cada categoria, extrai os livros associados
         livros = extrair_livros_pagina(nome_categoria, url_categoria)
         todos_livros.extend(livros)  # Adiciona à lista geral
-
+    print("Livros extraido com sucesso")
     return todos_livros
 
 
-# # Executa a extração de todos os livros do site
-# todos_livros = extrair_todos_os_livros()
+# Executa a extração de todos os livros do site
+todos_livros = extrair_todos_os_livros()
 
-# # Converte os dados para um DataFrame do pandas
-# df = pd.DataFrame(todos_livros)
+# Converte os dados para um DataFrame do pandas
+df = pd.DataFrame(todos_livros)
 
-# # Exporta os dados para um arquivo CSV (em UTF-8 com BOM, compatível com Excel)
-# df.to_csv("tech_challenge/data/todos_os_livros.csv", index=False, encoding="utf-8-sig")
+# Exporta os dados para um arquivo CSV (em UTF-8 com BOM, compatível com Excel)
+print("Excel salvo com sucesso")
+df.to_csv("todos_os_livros.csv", index=False, encoding="utf-8-sig")

@@ -125,6 +125,44 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 
 ---
 
+## Como rodar o projeto: passo a passo
+
+## 1. Clonar o repositório
+
+> git clone https://github.com/gabrielespanhol/tech_challenge_fase_1_GabrielRm366244.git
+> cd tech_challenge_fase_1_GabrielRm366244
+
+## 2. Criar e ativar um ambiente virtual (recomendado)
+
+> python -m venv venv
+> source venv/bin/activate   # no macOS/Linux
+> venv\Scripts\activate      # no Windows
+
+## 3. Instalar dependências
+
+> pip install -r requirements.txt
+> No arquivo requirements.txt, você encontrará as dependências necessárias para rodar a aplicação — por exemplo, FastAPI, BeautifulSoup, entre outras.
+
+
+## 4. Preparar o banco de dados (opcional, conforme sua escolha)
+
+> Os dados podem ser armazenados localmente via CSV ou em banco se você fizer web scraping pela rota da API 
+> Caso opte por fazer o web scraping pela rota da API é necessario configurar o banco de dados de sua escolha no arquivo "db/session.py" 
+> O codigo para criar um banco SQLite local esta pronto, apenas precisa ser "descomentado" e a parte que aponta para uma base de produção precisa ser comentada
+
+## 5. Rodar o scraping local (opcional)
+
+Para extrair os dados e salvá-los em CSV:
+python scripts/web_scraping.py
+Isso utiliza o BeautifulSoup para coletar dados de Books to Scrape e salvar localmente 
+
+## 6. Iniciar a API
+
+Execute:
+uvicorn main:app --reload
+Isso iniciará a API com hot-reload localmente.
+
+
 ## 🧾 Especificação Técnica
 
 - **Versão da API:** 1.0.0
