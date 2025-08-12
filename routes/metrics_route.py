@@ -11,7 +11,7 @@ metrics_route = APIRouter()
 
 
 @metrics_route.post(
-    "/metrics/", response_model=Metrics, status_code=status.HTTP_201_CREATED
+    "/metrics", response_model=Metrics, status_code=status.HTTP_201_CREATED
 )
 def create_metric(metric: MetricsCreate, db: Session = Depends(get_db)):
     db_metric = MetricsModel(**metric.dict())
