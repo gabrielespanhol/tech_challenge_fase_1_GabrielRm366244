@@ -171,7 +171,7 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 > python scripts/web_scraping.py<br>
 > Isso utiliza o BeautifulSoup para coletar dados de Books to Scrape e salvar localmente 
 
-## 6. Iniciar a API
+## 6. Ajuste security keys
 
 > Para rodar localmente no arquivo "scripts/security.py" comentar os parametros SECRET_KEY e REFRESH_SECRET_KEY de prod e descomentar os de DEV
 
