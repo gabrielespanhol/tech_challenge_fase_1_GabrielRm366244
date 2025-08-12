@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from db.base import get_db
+from db.session import get_db
 from models.user_model import User
 from schemas.user_schema import UserCreate, UserLogin, UserResponse, Token
+from scripts.auth import get_current_user
 from scripts.security import (
     hash_password,
     verify_password,
@@ -14,7 +16,9 @@ from scripts.security import (
 auth_route = APIRouter(prefix="/api/v1/auth")
 
 
-@auth_route.post("/createUser", response_model=UserResponse)
+@auth_route.post(
+    "/createUser", response_model=UserResponse, status_code=status.HTTP_201_CREATED
+)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     # Checa se usuário já existe
     if db.query(User).filter(User.username == user.username).first():
@@ -25,8 +29,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = User(username=user.username, hashed_password=hashed_pw)
     db.add(db_user)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    return JSONResponse(status_code=201, content={"message": "Criado"})
 
 
 @auth_route.post("/login", response_model=Token)

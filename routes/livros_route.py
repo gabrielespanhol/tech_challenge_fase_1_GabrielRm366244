@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Body, HTTPException, Query
+from fastapi import APIRouter, Body, HTTPException, Query, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import text, func
 from db.session import SessionLocal
 from models.book_model import BookModel
+from models.user_model import User
 from schemas.book_schema import BookSchema
+from scripts.auth import get_current_user
 from scripts.web_scraping import extrair_todos_os_livros
 from typing import List, Optional
 from fastapi.responses import JSONResponse
@@ -24,7 +26,7 @@ def parse_preco(preco_str):
 
 
 @book_route.post("/api/v1/scraping/trigger")
-def carregar_base():
+def carregar_base(current_user: User = Depends(get_current_user)):
     session: Session = SessionLocal()
     try:
         # Extrai todos os livros do site
@@ -84,7 +86,7 @@ def carregar_base():
 
 
 @book_route.delete("/api/v1/scraping/trigger/delete")
-def truncate_base_livros():
+def truncate_base_livros(current_user: User = Depends(get_current_user)):
     session: Session = SessionLocal()
     try:
         session.query(BookModel).delete()

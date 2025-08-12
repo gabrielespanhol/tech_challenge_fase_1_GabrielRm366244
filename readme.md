@@ -11,7 +11,7 @@ API pública desenvolvida como parte do Tech Challenge 2025 (RM366244) para inge
 https://tech-challenge-fase-1-gabrielrm366244.onrender.com/docs
 ```
 
-## 🌐 URL Dashboard
+## 🌐 URL API Metrics Dashboard 
 
 ```
 https://tech-challenge-fase-1-gabrielrm366244-wihb.onrender.com/
@@ -44,6 +44,20 @@ PostgreSQL (Armazenado depois que a rota /api/v1/scraping/trigger é disparada)
 Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 
 ## 4. API 📖 Endpoints da API
+
+### 🔐 Auth
+
+#### ➕ Criar Usuário
+**POST** `/api/v1/auth/createUserh`
+> Cria um novo usuário com nome de usuário e senha.
+
+#### 🔑 Login
+**POST** `/api/v1/auth/loginh`
+> Autentica usuário e retorna tokens de acesso e refresh.
+
+#### 🔄 Refresh Token
+**POST** `/api/v1/auth/refresh`
+> Gera novos tokens a partir do refresh token válido.
 
 ### 📦 Books
 
@@ -141,7 +155,8 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 ## 3. Instalar dependências
 
 > pip install -r requirements.txt<br>
-> No arquivo requirements.txt, você encontrará as dependências necessárias para rodar a aplicação — por exemplo, FastAPI, BeautifulSoup, entre outras.
+> No arquivo requirements.txt, você encontrará as dependências necessárias para rodar a aplicação<br> 
+> por exemplo, FastAPI, BeautifulSoup, entre outras.
 
 
 ## 4. Preparar o banco de dados (opcional, conforme sua escolha)
@@ -157,6 +172,10 @@ Arquivo CSV (Armazenado depois que o script web_scraping.py é executado)
 > Isso utiliza o BeautifulSoup para coletar dados de Books to Scrape e salvar localmente 
 
 ## 6. Iniciar a API
+
+> Para rodar localmente no arquivo "scripts/security.py" comentar os parametros SECRET_KEY e REFRESH_SECRET_KEY de prod e descomentar os de DEV
+
+## 7. Iniciar a API
 
 > Execute:<br>
 > uvicorn main:app --reload<br>

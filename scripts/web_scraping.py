@@ -106,12 +106,17 @@ def extrair_todos_os_livros():
     return todos_livros
 
 
-# Executa a extração de todos os livros do site
-todos_livros = extrair_todos_os_livros()
+def main():
+    # Executa a extração de todos os livros do site
+    todos_livros = extrair_todos_os_livros()
 
-# Converte os dados para um DataFrame do pandas
-df = pd.DataFrame(todos_livros)
+    # Converte os dados para um DataFrame do pandas
+    df = pd.DataFrame(todos_livros)
 
-# Exporta os dados para um arquivo CSV (em UTF-8 com BOM, compatível com Excel)
-print("Excel salvo com sucesso")
-df.to_csv("todos_os_livros.csv", index=False, encoding="utf-8-sig")
+    # Exporta os dados para um arquivo CSV (em UTF-8 com BOM, compatível com Excel)
+    print("Excel salvo com sucesso")
+    df.to_csv("todos_os_livros.csv", index=False, encoding="utf-8-sig")
+
+
+if __name__ == "__main__":
+    main()
