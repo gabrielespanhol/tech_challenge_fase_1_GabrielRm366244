@@ -1,10 +1,15 @@
+import os
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 # Configurações do JWT
-SECRET_KEY = "sua_chave_secreta_bem_grande"
-REFRESH_SECRET_KEY = "sua_chave_refresh"
+# dev
+SECRET_KEY = "a4f3e27951b33272e460a5417a9f6d2948bf8d952079c6c919c36ddde19a58ad"
+REFRESH_SECRET_KEY = "cd740a0d16e6ae7deb0e7535a1ba104a389e85688e5f0510946efc01edce5a2c"
+# prod
+# SECRET_KEY = os.getenv("SECRET_KEY")
+# REFRESH_SECRET_KEY = os.getenv("REFRESH_SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_MINUTES = 60
